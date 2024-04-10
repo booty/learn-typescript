@@ -1,0 +1,37 @@
+{
+    "cells": [
+        {
+            "language": "markdown",
+            "source": [
+                "# TypeScript for Java/C# Programmers\n\nhttps://www.typescriptlang.org/docs/handbook/typescript-in-5-minutes-oop.html\n\n- We recommand learning some vanilla JavaScript before diving into TypeScript.\n- Same runtime as Javascript\n\n## Differences from Java/C# Classes\n\n- C# and Java are \"mandatory OOP\" languages\n  - Class is the basic unit of code organization\n  - Basic container of all data, behavior at runtime\n  - Nominal Reified Type Systems\n    - Any given value has one exact type\n      - Null, a primitive, or a known class type\n    - Can't interchange classes with similar shapes\n      - Unless explicit inheritance or interface\n- In Javascript,\n  - Functions, data can live anywhere\n\n## OOP in Typescript\n\n- C#: one-to-one correspondence between types/compile-time declarations\n- Typescript\n  - Types are \"a set of values\"\n  - A value can belong to many sets at once\n- For example, a value can be `string | number`\n- \"Erased Structural Types\"\n  - Interfaces, basically\n  - There is **no** runtime information that variable `x` implements interface `y`\n  - Can't use `typeof` and `instanceof` because types are erased\n"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "typescript",
+            "source": [
+                "interface Animal {\n  numLegs: number;\n  name: string;\n  greeting: string;\n}\n\n// human interface that inherits from Animal\ninterface Human extends Animal {\n  ssn: number;\n}\n\ninterface Machine {\n  cpuType: string;\n  ramGB: number;\n}\n\nfunction boot(device: Machine) {\n  console.log(\n    \"Now booting \" + device.cpuType + \" with \" + device.ramGB + \"GB RAM\"\n  );\n}\n\nconst cyborg = {\n  name: \"Genos\",\n  numLegs: 2,\n  greeting: \"I mete out justice\",\n  ssn: \"123-12-1234\",\n  cpuType: \"i9-9999\",\n  ramGB: 1024,\n};\n\nboot(cyborg);\n"
+            ],
+            "outputs": [
+                {
+                    "items": [
+                        {
+                            "mime": "application/vnd.code.notebook.stdout",
+                            "value": [
+                                "Now booting i9-9999 with 1024GB RAM",
+                                ""
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "language": "typescript",
+            "source": [
+                ""
+            ],
+            "outputs": []
+        }
+    ]
+}
