@@ -10,7 +10,7 @@
         {
             "language": "typescript",
             "source": [
-                "interface Animal {\n  numLegs: number;\n  name: string;\n  greeting: string;\n}\n\n// human interface that inherits from Animal\ninterface Human extends Animal {\n  ssn: number;\n}\n\ninterface Machine {\n  cpuType: string;\n  ramGB: number;\n}\n\nfunction boot(device: Machine) {\n  console.log(\n    \"Now booting \" + device.cpuType + \" with \" + device.ramGB + \"GB RAM\"\n  );\n}\n\nconst cyborg = {\n  name: \"Genos\",\n  numLegs: 2,\n  greeting: \"I mete out justice\",\n  ssn: \"123-12-1234\",\n  cpuType: \"i9-9999\",\n  ramGB: 1024,\n};\n\nboot(cyborg);\n"
+                "interface Machine {\n  cpuType: string;\n  ramGB: number;\n  mhz: number;\n}\n\ninterface Animal {\n  numLegs: number;\n  name: string;\n  greeting: string;\n}\n\n// human interface that inherits from Animal\ninterface Human extends Animal {\n  ssn: number;\n}\n\ninterface Machine {\n  cpuType: string;\n  ramGB: number;\n  mhz: number;\n}\n\nfunction boot(device: Machine) {\n  console.log(\n    \"Now booting \" +\n      device.cpuType +\n      \" @ \" +\n      device.mhz +\n      \"mhz with \" +\n      device.ramGB +\n      \"GB RAM\"\n  );\n}\n\nconst cyborg = {\n  name: \"Genos\",\n  numLegs: 2,\n  greeting: \"I mete out justice\",\n  ssn: \"123-12-1234\",\n  cpuType: \"i9-9999\",\n  ramGB: 1024,\n  mhz: 8000,\n};\n\nboot(cyborg);\n"
             ],
             "outputs": [
                 {
@@ -18,7 +18,7 @@
                         {
                             "mime": "application/vnd.code.notebook.stdout",
                             "value": [
-                                "Now booting i9-9999 with 1024GB RAM",
+                                "Now booting i9-9999 @ 5000mhz with 1024GB RAM",
                                 ""
                             ]
                         }

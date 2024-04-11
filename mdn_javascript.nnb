@@ -1,0 +1,191 @@
+{
+    "cells": [
+        {
+            "language": "markdown",
+            "source": [
+                "# Javascript Basics\n\nhttps://developer.mozilla.org/en-US/docs/Learn/Getting_started_with_the_web/JavaScript_basics\n\n## Types\n\n- String\n- Number\n- Boolean\n- Array\n- Object\n"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "// Conditionals\n\nconst iceCream = \"Chocolate\";\n\nif (iceCream == \"Chocolate\") {\n  console.log(\"Hell yeah good choice!\");\n} else {\n  console.log(\"I support your decision. More chocolate for me\");\n}\n\n// Functions\n\nfunction multiply(num1, num2) {\n  const result = num1 * num2;\n  return result;\n}\n\nconsole.log(multiply(6, 7));\n\n// Switch\n\nconst team = \"Phillies\";\n\nswitch (team) {\n  case \"Phillies\":\n    msg = \"Hell yeah brother!\";\n    break;\n  case \"Mets\":\n    msg = \"Boo\";\n    break;\n  default:\n    msg = \"Huh?\";\n}\n\nconsole.log(msg);\n\n// Try / Catch / Throw\n\nconst foods = {\n  mexican: \"taco\",\n  russian: \"borscht\",\n  american: \"hamburger\",\n};\n\nfunction getFood(foodType) {\n  if (foods[foodType]) return foods[foodType];\n  else throw new Error(\"I don't know that kind of food!\");\n}\n\nconst getFood2 = (foodType) =>\n  foods[foodType] ||\n  (() => {\n    throw new Error(\"I don't know that kind of food!\");\n  })();\n\nconsole.log(getFood(\"russian\"));\ntry {\n  console.log(getFood(\"chinese\"));\n} catch (e) {\n  console.error(`whoops! ${e}`);\n}\n"
+            ],
+            "outputs": [
+                {
+                    "items": [
+                        {
+                            "mime": "application/vnd.code.notebook.stdout",
+                            "value": [
+                                "Hell yeah good choice!",
+                                "borscht",
+                                ""
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "items": [
+                        {
+                            "mime": "application/vnd.code.notebook.stderr",
+                            "value": [
+                                "whoops! Error: I don't know that kind of food!",
+                                ""
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "## Functions\n\n- Arguments are always passed by value; never passed by reference\n- Object arguments are passed by sharing\n  - If you mutate their properties, the change will impact the outside world\n- Four kinds\n  - Regular function\n    - Always runs to completion\n    - Returns anything\n  - Generator function\n    - Returns generator object\n    - Can be paused and resumed with `yield`\n  - Async\n    - Returns a promise\n    - Can be paused and resumed with `await`\n  - Async generator\n"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "// Modern-ass arrow functions\n\nconst sayHello = (name, timeOfDay) =>\n  `Hello, ${name}. Have a great ${timeOfDay}!`;\nconsole.log(sayHello(\"Booty\", \"late night\"));\n\n// Expressions with anonymous functions\n\nconst multiply = function (x, y) {\n  return x * y;\n};\nconst add = function (x, y) {\n  return x + y;\n};\nconst doSomething = function (x, y, func) {\n  return func(x, y);\n};\n\nconsole.log(doSomething(10, 5, multiply));\nconsole.log(doSomething(2, 4, add));\n\n// Expressions with named functions\n// Why use this?\n// - Debugging clarity\n// - Recursion\n// - May be easier to stub/mock\nconst subtract = function funcName(x, y) {\n  return x - y;\n};\n\n// Default values\nfunction fart(volume = 10) {\n  return \"p\" + \"b\".repeat(volume) + \"t 💨\";\n}\n\nconsole.log(fart());\n"
+            ],
+            "outputs": [
+                {
+                    "items": [
+                        {
+                            "mime": "application/vnd.code.notebook.stdout",
+                            "value": [
+                                "Hello, Booty. Have a great late night!",
+                                "50",
+                                "6",
+                                "pbbbbbbbbbbt 💨",
+                                ""
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "// Generator function\n\nfunction* generateSequence() {\n  yield 1;\n  yield 2;\n  yield 3;\n}\n\nconst gen = generateSequence();\n\nfor (let i = 0; i < 5; i++) {\n  const result = gen.next();\n  console.log(`done:${result.done}\\tvalue:${result.value}`);\n}\n"
+            ],
+            "outputs": [
+                {
+                    "items": [
+                        {
+                            "mime": "application/vnd.code.notebook.stdout",
+                            "value": [
+                                "done:false\tvalue:1",
+                                "done:false\tvalue:2",
+                                "done:false\tvalue:3",
+                                "done:true\tvalue:undefined",
+                                "done:true\tvalue:undefined",
+                                ""
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "// Async functions\n\nasync function fetchData() {\n  try {\n    const response = await fetch(\"https://animechan.xyz/api/random\");\n    const data = await response.json();\n    return data;\n  } catch (error) {\n    throw new Error(\"Error fetching data\");\n  }\n}\n\n// Example \"A\"\n(async () => {\n  try {\n    const data = await fetchData();\n    console.log(data);\n  } catch (error) {\n    console.error(error);\n  }\n})();\n\n// Example \"B\"\nconsole.log(await fetchData());\n"
+            ],
+            "outputs": [
+                {
+                    "items": [
+                        {
+                            "mime": "application/vnd.code.notebook.stdout",
+                            "value": [
+                                "{",
+                                "  quote: 'You gotta love humans. When everything sticks to the script, they can put on a great act. But as soon as something unexpected happens, they react completely true to their nature.',",
+                                "  anime: 'Liar Game',",
+                                "  character: 'Akiyama Shinichi'",
+                                "}",
+                                "{",
+                                "  quote: 'You gotta love humans. When everything sticks to the script, they can put on a great act. But as soon as something unexpected happens, they react completely true to their nature.',",
+                                "  anime: 'Liar Game',",
+                                "  character: 'Akiyama Shinichi'",
+                                "}",
+                                ""
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "## Regular Expressions\n"
+            ],
+            "outputs": [
+                {
+                    "items": [
+                        {
+                            "mime": "application/vnd.code.notebook.error",
+                            "value": {
+                                "name": "Error",
+                                "message": "Failed to generate code object, \nRegular;\n ^\n\nUnexpected character ';'",
+                                "stack": ""
+                            }
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "function identify(input) {\n  const phoneNumberRegex = /^\\(?\\d{3}\\)?[-.\\s]?\\d{3}[-.\\s]?\\d{4}$/;\n  const ssnRegex = /^\\d{3}-\\d{2}-\\d{4}$/;\n  const dnaRegex = /^[GACT]+$/;\n  const prefix = `[[[ANALYZING ${input}]]]`;\n  if (phoneNumberRegex.test(input)) {\n    return `${prefix} Phone number!`;\n  } else if (ssnRegex.test(input)) {\n    return `${prefix} SSN!`;\n  } else if (dnaRegex.test(input)) {\n    return `${prefix} That is DNA right there!`;\n  }\n  return `${prefix} ...no clue...`;\n}\n\nconsole.log(identify(\"(fart noise)\"));\nconsole.log(identify(\"GATTACA\"));\nconsole.log(identify(\"123-123-1234\"));\nconsole.log(identify(\"999-99-9999\"));\n"
+            ],
+            "outputs": [
+                {
+                    "items": [
+                        {
+                            "mime": "application/vnd.code.notebook.stdout",
+                            "value": [
+                                "[[[ANALYZING (fart noise)]]] ...no clue...",
+                                "[[[ANALYZING GATTACA]]] That is DNA right there!",
+                                "[[[ANALYZING 123-123-1234]]] Phone number!",
+                                "[[[ANALYZING 999-99-9999]]] SSN!",
+                                ""
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "## Classes\n\n- They are \"special functions\"\n- A class element can be defined by three elements (16 combinations)\n  - Kind\n    - Getter\n    - Setter\n    - Method\n    - Field\n  - Location\n    - Static\n    - Instance\n  - Visibility\n    - Public\n    - Private\n"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "class Robot {\n  constructor(name) {\n    this.name = name;\n    this.serialNumber = Robot.getSerialNumber();\n  }\n\n  static nextSerialNumber = 1;\n\n  model = \"Basic Robot\"; // should prob do this in constructor tho\n\n  static getSerialNumber() {\n    const result = String(this.nextSerialNumber).padStart(4, \"0\");\n    this.nextSerialNumber++;\n    return result;\n  }\n\n  greeting() {\n    return `Hello, I'm ${this.name} (${this.model} ${this.serialNumber})`;\n  }\n\n  murder(target) {\n    return `I refuse to commit acts of violence.`;\n  }\n}\n\nclass DeathMachine extends Robot {\n  greeting() {\n    return `${super.greeting()} and I'm ready for mayhem!`;\n  }\n\n  murder(target) {\n    this.killCount++;\n    return `Sure, I will gladly kill ${target} for you. My kill count is now ${this.killCount} and I'm prepared to go higher.`;\n  }\n\n  model = \"DeathMachine\";\n  killCount = 0;\n}\n\nbob = new Robot(\"Bob\");\nsally = new Robot(\"Sally\");\nkiller = new DeathMachine(\"Killah\");\nconsole.log(bob.greeting());\nconsole.log(bob.murder(\"John Wayne Gacy\"));\nconsole.log(bob.killCount); // undefined\nconsole.log(killer.greeting());\nconsole.log(killer.murder(\"Jeffrey Dahmer\"));\nconsole.log(killer.murder(\"Pol Pot\"));\n"
+            ],
+            "outputs": [
+                {
+                    "items": [
+                        {
+                            "mime": "application/vnd.code.notebook.stdout",
+                            "value": [
+                                "Hello, I'm Bob (Basic Robot 0001)",
+                                "Sure, I will gladly kill Pol Pot for you. My kill count is now 2 and I'm prepared to go higher.",
+                                ""
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
