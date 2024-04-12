@@ -1,0 +1,11 @@
+{
+    "cells": [
+        {
+            "language": "markdown",
+            "source": [
+                "# The Typescript Handbook\n\nhttps://www.typescriptlang.org/docs/handbook/intro.html\n\n## Targeting\n\n- `tsc` is your transpiler\n- Default target is ES3\n  - Very old!\n  - No template strings, etc.\n- Can use `--target es2015` instead\n\n## Strictness\n\n- Default\n  - A loose, opt-in experience\n  - Types are optional\n  - Inference takes most leniant types\n  - No `null`/`undefined` checking\n- Strict\n  - `--strict` in CLI\n  - `\"strict\": true` in tsconfig.json\n  - Turns everything on automatically\n    - Can opt out individually if desired\n  - `noImplicitAny`\n    - Falling back to `any` is basically the default javascript experience\n    - `noImplicitAny` errors if types inferred as `any`\n  - `strictNullChecks`\n    - Disableds default behavior of `null` and `undefined` are assignable to any other type\n\n## Types\n\n- Primitives\n  - `string`, `number`, `boolean`\n    - You want those and not `String`, `Number`, `Boolean`\n  - Declaration\n    - explicit: `let str: string = 'hello'`\n    - inferred: `let myName = 'alice'`\n- Arrays\n  - `number[]`, `string[]`, etc\n- `any`\n  - `let obj: any = {a: 123, b: 456}`\n\n##\n"
+            ],
+            "outputs": []
+        }
+    ]
+}
